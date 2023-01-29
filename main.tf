@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "bucket" {
    }
 }
 
-resource "aws_s3_object" "object" {
+resource "aws_s3_bucket_object" "object" {
   bucket = "test211293"
   key    = "buddha.jpg"
   source = "C:\\Users\\Karan\\Pictures\\buddha.jpg"
