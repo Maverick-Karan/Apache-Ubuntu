@@ -1,7 +1,7 @@
 provider "aws" {
    region = "us-east-1"
-   access_key = "AKIA3K72NPHY6ZZCJNNO"
-   secret_key = "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"
+   access_key = "${{ secrets.AWS_ACCESS_KEY_ID }}"
+   secret_key = "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 }
 
 resource "aws_s3_bucket" "bucket" {
