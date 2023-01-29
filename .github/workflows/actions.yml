@@ -27,6 +27,8 @@ jobs:
       run: terraform init -input=false
 
     - name: Terraform validation
+      env:
+        region : "us-easet-1"
       run: terraform validate
 
     - name: Terraform apply
