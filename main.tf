@@ -2,12 +2,7 @@ provider "aws" {
    region = "us-east-1"
 }
 
-resource "aws_s3_bucket" "bucket" {
-   bucket = "test211293"
-   tags = {
-      description = "Testing"
-   }
-}
+
 
 
 resource "aws_s3_object" "object" {
