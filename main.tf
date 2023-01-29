@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-   bucket = "testdynamoDB1007"
+   bucket = "testing211293"
    tags = {
       description = "Testing"
    }
