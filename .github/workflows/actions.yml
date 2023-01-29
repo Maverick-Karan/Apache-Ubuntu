@@ -28,7 +28,7 @@ jobs:
 
     - name: Terraform validation
       env:
-        region : "us-easet-1"
+        region : "us-east-1"
       run: terraform validate
 
     - name: Terraform apply
