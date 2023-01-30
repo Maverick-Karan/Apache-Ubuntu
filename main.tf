@@ -3,15 +3,15 @@ resource "aws_instance" "webserver" {
    instance_type = "t2.micro"
    tags = {
       Name = "webserver"
-      Description = "Nginx on ubuntu"
+      Description = "Apache on ubuntu"
    }
 
    user_data = <<-EOF
                #!/bin/bash
                sudo yum update -y
-               sudo amazon-linux-extras install nginx1 -y 
-               sudo systemctl enable nginx
-               sudo systemctl start nginx
+               sudo yum install -y httpd
+               sudo systemctl enable httpd
+               sudo service httpd start 
                EOF
 
    key_name = "webserver"
