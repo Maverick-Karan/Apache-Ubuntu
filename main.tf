@@ -18,7 +18,9 @@ resource "aws_instance" "webserver" {
 }
 
 
-
+resource "aws_key_pair" "web" {
+   public_key = file("/root/.ssh/web.pub")
+}
 
 
 resource "aws_security_group" "ssh-access" {
