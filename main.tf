@@ -1,10 +1,7 @@
 resource "aws_instance" "webserver" {
    ami = "ami-0aa7d40eeae50c9a9"
    instance_type = "t2.micro"
-   tags = {
-      Name = "webserver"
-      Description = "Nginx on ubuntu"
-   }
+   
 
    provisioner "remote-exec" {
       inline = [ "sudo apt update",
