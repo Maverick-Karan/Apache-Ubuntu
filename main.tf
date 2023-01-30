@@ -16,10 +16,6 @@ resource "aws_instance" "webserver" {
 
    key_name = "webserver"
    vpc_security_group_ids = [aws_security_group.ssh-access.id]
-
-
-   key_name = "webserver"
-   vpc_security_group_ids = [aws_security_group.ssh-access.id]
 }
 
 
