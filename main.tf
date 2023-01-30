@@ -17,7 +17,7 @@ resource "aws_instance" "webserver" {
    vpc_security_group_ids = [aws_security_group.ssh-access.id]
 }
 
-resourse "aws_key_pair" "web" {
+resource "aws_key_pair" "web" {
    public_key = file("/root/.ssh.web.pub")
 }
 
