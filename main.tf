@@ -13,14 +13,12 @@ resource "aws_instance" "webserver" {
                systemctl enable nginx
                systemctl start nginx
                EOF
-   key_name = aws_key_pair.web.id
+   key_name = "webserver.pem"
    vpc_security_group_ids = [aws_security_group.ssh-access.id]
 }
 
 
-resource "aws_key_pair" "web" {
-   public_key = file("/root/.ssh/web.pub")
-}
+
 
 
 resource "aws_security_group" "ssh-access" {
