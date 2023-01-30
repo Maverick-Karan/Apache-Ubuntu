@@ -3,7 +3,7 @@ resource "aws_instance" "webserver" {
    instance_type = "t2.micro"
    tags = {
       Name = "webserver"
-      Description = "Apache on ubuntu"
+      Description = "Apachee on ubuntu"
    }
 
    user_data = <<-EOF
