@@ -51,8 +51,13 @@ resource "aws_security_group" "public_access" {
    }
 }
 
-
-
 output publicip {
    value = aws_instance.webserver.public_ip
+}
+
+###############################################################################################################
+
+
+module "start-up"{
+   source = "./modules/start-up"
 }
