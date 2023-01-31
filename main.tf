@@ -109,33 +109,39 @@ resource "aws_s3_bucket" "bucket" {
    tags = {
       description = "Testing"
    }
-
-   policy = <<EOF 
-   {
-      "Version": "2012-10-17",
-      "Statement": [
-           {
-               "Sid": "Public read",
-               "Effect": "Allow",
-               "Principal": "*",
-               "Action": "s3:*",
-               "Resource": "arn:aws:s3:::test2112/*"
-           }
-       ]
-   }
-   EOF
 }
 
 resource "aws_s3_object" "object" {
   bucket = "test2112"
   key    = "buddha.jpg"
   source = "./buddha.jpg"
-  #etag = filemd5("./buddha.jpg")
+  etag = filemd5("./buddha.jpg")
 }
 
 resource "aws_s3_object" "index" {
   bucket = "test2112"
   key    = "index.html"
   source = "./index.html"
-  #etag = filemd5("./buddha.jpg")
+  etag = filemd5("./buddha.jpg")
+}
+
+
+resource "aws_s3_bucket_policy" "all-access" {
+  bucket = aws_s3_bucket.bucket.id
+  policy = data.aws_iam_policy_document.allow-all-access.json
+}
+
+data "aws_iam_policy_document" "allow-all-access" {
+  statement {
+    principals {
+      "*"
+    }
+    actions = [
+      "*"
+    ]
+    resources = [
+      aws_s3_bucket.bucket.arn,
+      "${aws_s3_bucket.bucket.arn}/*",
+    ]
+  }
 }
