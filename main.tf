@@ -93,8 +93,6 @@ terraform {
       region = "us-east-1"
       dynamodb_table = "state-locking" 
    }
-
-   depends_on = [aws_dynamodb_table.DB_lock_state, aws_s3_bucket.state_bucket]
 }
 
 
