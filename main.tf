@@ -89,9 +89,6 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 
 resource "aws_s3_bucket" "bucket" {
    bucket = "test2112"
-   website {
-      index_document = "index.html"
-   }
    tags = {
       description = "Testing"
    }
@@ -111,4 +108,14 @@ resource "aws_s3_object" "index" {
   etag = filemd5("./buddha.jpg")
 }
 
+resource "aws_s3_bucket_website_configuration" "website-config" {
+  bucket = aws_s3_bucket.bucket.bucket
+  index_document = {
+    suffix = "index.html"
+  }
+}
 
+resource "aws_s3_bucket_policy" "example-policy" {
+  bucket = aws_s3_bucket.bucket.id
+  policy = templatefile("s3-policy.json", { bucket = var.name_of_s3_bucket })
+}
