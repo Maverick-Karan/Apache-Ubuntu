@@ -15,13 +15,13 @@ resource "aws_instance" "webserver" {
                EOF
 
    key_name = "webserver"
-   vpc_security_group_ids = [aws_security_group.ssh-access.id]
+   vpc_security_group_ids = [aws_security_group.ssh-access.id, aws_security_group.public_access.id]
    
 }
 
 
 resource "aws_security_group" "ssh-access" {
-   name = "webserverSG"
+   name = "SSH-SG"
    description = "allow SSH"
    ingress {
       from_port = 22
@@ -30,6 +30,26 @@ resource "aws_security_group" "ssh-access" {
       cidr_blocks = ["0.0.0.0/0"]
    }
 }
+
+resource "aws_security_group" "public_access" {
+   name = "public-SG"
+   description = "open to www"
+   ingress {
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+   }
+
+   egress {
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+   }
+}
+
+
 
 output publicip {
    value = aws_instance.webserver.public_ip
