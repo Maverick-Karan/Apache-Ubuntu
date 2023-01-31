@@ -115,7 +115,3 @@ resource "aws_s3_bucket_website_configuration" "website-config" {
   }
 }
 
-resource "aws_s3_bucket_policy" "example-policy" {
-  bucket = aws_s3_bucket.bucket.id
-  policy = templatefile("s3-policy.json", { bucket = var.name_of_s3_bucket })
-}
