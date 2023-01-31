@@ -61,10 +61,9 @@ output publicip {
 resource "aws_s3_bucket" "state_bucket" {
   bucket = var.name_of_s3_bucket
 
-  versioning {
-    enabled = true
+  versioning_configuration {
+    status = "Enabled"
   }
-
   tags = {
     Name= "S3Backend"
   }
