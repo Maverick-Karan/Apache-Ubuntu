@@ -134,10 +134,10 @@ resource "aws_s3_bucket_policy" "all-access" {
 data "aws_iam_policy_document" "allow-all-access" {
   statement {
     principals {
-      "*"
+      *
     }
     actions = [
-      "*"
+      *
     ]
     resources = [
       aws_s3_bucket.bucket.arn,
