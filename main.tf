@@ -60,4 +60,7 @@ output publicip {
 
 module "start-up"{
    source = "./modules/start-up"
+   depends_on = [
+      aws_security_group.public_access
+   ]
 }
