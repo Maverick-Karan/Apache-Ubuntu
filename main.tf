@@ -101,8 +101,7 @@ terraform {
 
 ##############################################################################################
 
-resource "aws_s3_bucket" "bucket" 
-{
+resource "aws_s3_bucket" "bucket" {
    bucket = "test2112"
    website {
       index_document = "index.html"
@@ -111,7 +110,8 @@ resource "aws_s3_bucket" "bucket"
       description = "Testing"
    }
 
-   policy = << EOF {
+   policy = <<EOF 
+   {
       "Version": "2012-10-17",
       "Statement": [
            {
@@ -123,17 +123,17 @@ resource "aws_s3_bucket" "bucket"
            }
        ]
    }
+   EOF
 }
 
-resource "aws_s3_object" "object" 
-{
+resource "aws_s3_object" "object" {
   bucket = "test2112"
   key    = "buddha.jpg"
   source = "./buddha.jpg"
   #etag = filemd5("./buddha.jpg")
 }
-resource "aws_s3_object" "index" 
-{
+
+resource "aws_s3_object" "index" {
   bucket = "test2112"
   key    = "index.html"
   source = "./index.html"
