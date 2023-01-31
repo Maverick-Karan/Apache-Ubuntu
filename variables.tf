@@ -1,5 +1,5 @@
 variable "name_of_s3_bucket" {
-   default = "state-bucket"
+   default = "test211293"
 }
 
 variable "dynamo_db_table_name" {
