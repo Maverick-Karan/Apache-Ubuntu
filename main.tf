@@ -126,22 +126,3 @@ resource "aws_s3_object" "index" {
 }
 
 
-resource "aws_s3_bucket_policy" "all-access" {
-  bucket = aws_s3_bucket.bucket.id
-  policy = data.aws_iam_policy_document.allow-all-access.json
-}
-
-data "aws_iam_policy_document" "allow-all-access" {
-  statement {
-    principals {
-      *
-    }
-    actions = [
-      *
-    ]
-    resources = [
-      aws_s3_bucket.bucket.arn,
-      "${aws_s3_bucket.bucket.arn}/*",
-    ]
-  }
-}
