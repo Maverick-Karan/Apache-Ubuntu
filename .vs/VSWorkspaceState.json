@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github\\workflows"
   ],
-  "SelectedNode": "\\provider.tf",
+  "SelectedNode": "\\variables.tf",
   "PreviewInSolutionExplorer": false
 }

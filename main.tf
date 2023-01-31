@@ -82,3 +82,60 @@ resource "aws_dynamodb_table" "DB_lock_state" {
     BuiltBy = "Terraform"
   }
 }
+
+
+###########################################################################################
+
+terraform {
+   backend "s3" {
+      bucket = "state-bucket"
+      key = "backend/terraform.tfstate"
+      region = "us-east-1"
+      dynamodb_table = "state-locking" 
+   }
+
+   depends_on = [aws_dynamodb_table.DB_lock_state, aws_s3_bucket.state_bucket]
+}
+
+
+
+##############################################################################################
+
+resource "aws_s3_bucket" "bucket" 
+{
+   bucket = "test2112"
+   website {
+      index_document = "index.html"
+   }
+   tags = {
+      description = "Testing"
+   }
+
+   policy = << EOF {
+      "Version": "2012-10-17",
+      "Statement": [
+           {
+               "Sid": "Public read",
+               "Effect": "Allow",
+               "Principal": "*",
+               "Action": "s3:*",
+               "Resource": "arn:aws:s3:::test2112/*"
+           }
+       ]
+   }
+}
+
+resource "aws_s3_object" "object" 
+{
+  bucket = "test2112"
+  key    = "buddha.jpg"
+  source = "./buddha.jpg"
+  #etag = filemd5("./buddha.jpg")
+}
+resource "aws_s3_object" "index" 
+{
+  bucket = "test2112"
+  key    = "index.html"
+  source = "./index.html"
+  #etag = filemd5("./buddha.jpg")
+}
