@@ -59,7 +59,7 @@ output publicip {
 
 
 resource "aws_s3_bucket" "state_bucket" {
-  bucket = var.name_of_s3_bucket
+  bucket = "state-bucket"
 
   versioning {
     enabled = true
