@@ -88,9 +88,9 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 
 terraform {
    backend "s3" {
-      bucket = var.name_of_s3_bucket
+      bucket = "test211293"
       key = "backend/terraform.tfstate"
-      region = var.region
+      region = "us-east-1"
       dynamodb_table = "state-locking" 
    }
 }
