@@ -1,3 +1,5 @@
+#Create EC2, install Apache, add Index file, add SSH security group, add Public access Security group
+
 resource "aws_instance" "webserver" {
    ami = "ami-0aa7d40eeae50c9a9"
    instance_type = "t2.micro"
@@ -56,7 +58,7 @@ output publicip {
 }
 
 ###############################################################################################################
-
+#Create bucket for S3 bucket ad DynamoDB for S3 State backend
 
 resource "aws_s3_bucket" "state_bucket" {
   bucket = var.name_of_s3_bucket
@@ -86,7 +88,7 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 
 
 ##############################################################################################
-
+#Create S3 bucket, upload objects
 resource "aws_s3_bucket" "bucket" {
    bucket = "test21121007"
    tags = {
