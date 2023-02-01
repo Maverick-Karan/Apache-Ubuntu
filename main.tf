@@ -99,6 +99,8 @@ resource "aws_s3_object" "object" {
   key    = "buddha.jpg"
   source = "./buddha.jpg"
   etag = filemd5("./buddha.jpg")
+
+  depends_on = [aws_s3_bucket.bucket]
 }
 
 resource "aws_s3_object" "index" {
@@ -106,6 +108,8 @@ resource "aws_s3_object" "index" {
   key    = "index.html"
   source = "./index.html"
   etag = filemd5("./buddha.jpg")
+
+  depends_on = [aws_s3_bucket.bucket]
 }
 
 
