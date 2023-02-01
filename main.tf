@@ -92,6 +92,10 @@ resource "aws_s3_bucket" "bucket" {
    tags = {
       description = "Testing"
    }
+   website {
+    index_document = "index.html"
+    error_document = "index.html"
+   }
 }
 
 resource "aws_s3_object" "object" {
@@ -108,10 +112,5 @@ resource "aws_s3_object" "index" {
   etag = filemd5("./buddha.jpg")
 }
 
-resource "aws_s3_bucket_website_configuration" "website-config" {
-  bucket = aws_s3_bucket.bucket.bucket
-  index_document = {
-    suffix = "index.html"
-  }
-}
+
 
