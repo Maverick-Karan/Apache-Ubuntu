@@ -1,4 +1,4 @@
-#Create EC2, install Apache, add Index file, add SSH security group, add Public access Security group
+#Create EC2, install Apache, add Index file, add SSH security group, add Public access Security group, Output PublicIP of EC2
 
 resource "aws_instance" "webserver" {
    ami = "ami-0aa7d40eeae50c9a9"
@@ -87,8 +87,8 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 
 
 
-##############################################################################################
-#Create S3 bucket, upload objects
+#####################################################################################################################
+#Create S3 bucket, enable static website, attach public policy, upload objects & index.html, output static website URL
 resource "aws_s3_bucket" "bucket" {
    bucket = "test21121007"
    tags = {
@@ -96,23 +96,53 @@ resource "aws_s3_bucket" "bucket" {
    }
 }
 
+resource "aws_s3_bucket_website_configuration" "website-config" {
+  bucket = aws_s3_bucket.bucket.bucket
+  index_document {
+       suffix = "index.html"
+  }
+}
+
+resource "aws_s3_bucket_policy" "public_read_access" {
+  bucket = aws_s3_bucket.bucket.id
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+	   "Principal": "*",
+      "Action": [ "s3:*" ],
+      "Resource": [
+        "arn:aws:s3:::test21121007/*"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+
 resource "aws_s3_object" "object" {
-  bucket = "test21121007"
+  bucket = aws_s3_bucket.bucket
   key    = "buddha.jpg"
   source = "./buddha.jpg"
+  content_type = "image/jpeg"
   etag = filemd5("./buddha.jpg")
 
   depends_on = [aws_s3_bucket.bucket]
 }
 
 resource "aws_s3_object" "index" {
-  bucket = "test21121007"
+  bucket = aws_s3_bucket.bucket
   key    = "index.html"
   source = "./index.html"
-  etag = filemd5("./buddha.jpg")
+  content_type = "text/html"
+  etag = filemd5("./index.html")
 
   depends_on = [aws_s3_bucket.bucket]
 }
 
-
-
+output static-website {
+   value = "http://${aws_s3_bucket.bucket.id}.s3-website-${var.region}.amazonaws.com"
+}

@@ -1,14 +1,13 @@
-name: Terraform Apply
+name: Terraform with AWS
 
 on:
   workflow_dispatch:
   push:
     branches:
       - master
-      - changes
 
 jobs:
-  EC2:
+  Terraform:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
