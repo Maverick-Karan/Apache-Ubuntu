@@ -88,21 +88,21 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 ##############################################################################################
 
 resource "aws_s3_bucket" "bucket" {
-   bucket = "test2112"
+   bucket = "test21121007"
    tags = {
       description = "Testing"
    }
 }
 
 resource "aws_s3_object" "object" {
-  bucket = "test2112"
+  bucket = "test21121007"
   key    = "buddha.jpg"
   source = "./buddha.jpg"
   etag = filemd5("./buddha.jpg")
 }
 
 resource "aws_s3_object" "index" {
-  bucket = "test2112"
+  bucket = "test21121007"
   key    = "index.html"
   source = "./index.html"
   etag = filemd5("./buddha.jpg")
