@@ -92,10 +92,6 @@ resource "aws_s3_bucket" "bucket" {
    tags = {
       description = "Testing"
    }
-   website {
-    index_document = "index.html"
-    error_document = "index.html"
-   }
 }
 
 resource "aws_s3_object" "object" {
