@@ -61,7 +61,7 @@ output publicip {
 #Create bucket for S3 bucket ad DynamoDB for S3 State backend
 
 resource "aws_s3_bucket" "state_bucket" {
-  bucket = var.name_of_s3_bucket
+  bucket = var.state_bucket
 
   tags = {
     Name= "S3Backend"
@@ -90,7 +90,7 @@ resource "aws_dynamodb_table" "DB_lock_state" {
 #####################################################################################################################
 #Create S3 bucket, enable static website, attach public policy, upload objects & index.html, output static website URL
 resource "aws_s3_bucket" "bucket" {
-   bucket = "test21121007"
+   bucket = var.web_bucket
    tags = {
       description = "Testing"
    }
@@ -124,7 +124,7 @@ EOF
 
 
 resource "aws_s3_object" "object" {
-  bucket = aws_s3_bucket.bucket
+  bucket = aws_s3_bucket.bucket.id
   key    = "buddha.jpg"
   source = "./buddha.jpg"
   content_type = "image/jpeg"
@@ -134,7 +134,7 @@ resource "aws_s3_object" "object" {
 }
 
 resource "aws_s3_object" "index" {
-  bucket = aws_s3_bucket.bucket
+  bucket = aws_s3_bucket.bucket.id
   key    = "index.html"
   source = "./index.html"
   content_type = "text/html"
